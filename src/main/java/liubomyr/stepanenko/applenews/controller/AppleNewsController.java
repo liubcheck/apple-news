@@ -9,12 +9,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("/apple")
+@RequestMapping("/api/news")
 @RequiredArgsConstructor
 public class AppleNewsController {
     private final AppleNewsService appleNewsService;
 
-    @GetMapping
+    @GetMapping("/apple")
     public List<ApiArticleDto> getAppleNews() {
         return appleNewsService.getNews();
     }
