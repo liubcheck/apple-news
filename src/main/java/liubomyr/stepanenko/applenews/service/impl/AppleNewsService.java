@@ -11,7 +11,7 @@ import org.springframework.stereotype.Service;
 
 @Service
 @RequiredArgsConstructor
-public class AppleNewsServiceImpl implements NewsService {
+public class AppleNewsService implements NewsService {
     private static final String BASE_URL = "https://api.polygon.io/v2/reference/news?"
             + "limit=1000"
             + "&published_utc.gte=2023-12-01T00:00:00Z&published_utc.lte=2023-12-31T23:59:59Z";
