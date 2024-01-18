@@ -14,14 +14,13 @@ import org.springframework.stereotype.Component;
 @Component
 @RequiredArgsConstructor
 public class NewsHttpClient {
-    private static final String BASE_URL = "https://api.polygon.io/v2/reference/news?limit=1000";
     private final HttpClient httpClient = HttpClient.newHttpClient();
     private final ObjectMapper objectMapper;
     @Value("${polygon.api.key}")
     private String apiKey;
 
-    public ApiResponseDto getNews() {
-        String urlWithApiKey = BASE_URL + "&apiKey=" + apiKey;
+    public ApiResponseDto getNews(String url) {
+        String urlWithApiKey = url + "&apiKey=" + apiKey;
         HttpRequest httpRequest = HttpRequest.newBuilder()
                 .GET()
                 .uri(URI.create(urlWithApiKey))
