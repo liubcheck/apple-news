@@ -22,13 +22,21 @@ public class AppleNewsService implements NewsService {
     @Override
     public List<ApiArticleDto> getNews() {
         ApiResponseDto articlesInfo = apiClient.getNews(BASE_URL);
+
         List<ApiArticleDto> articles = new ArrayList<>();
-        while (articlesInfo.getNext_url() != null || articles.size() <= 100) {
-            articles.addAll(articlesInfo.getResults().stream()
-                    .filter(article -> article.getTitle().contains(APPLE))
-                    .toList());
-            articlesInfo = apiClient.getNews(articlesInfo.getNext_url());
-        }
+        do {
+            if (articlesInfo != null && articlesInfo.getResults() != null) {
+                articles.addAll(articlesInfo.getResults().stream()
+                        .filter(article -> article.getTitle().contains(APPLE))
+                        .toList());
+            }
+            if (articlesInfo != null && articlesInfo.getNext_url() != null) {
+                articlesInfo = apiClient.getNews(articlesInfo.getNext_url());
+            } else {
+                break;
+            }
+        } while (true);
+
         return articles.stream()
                 .limit(ARTICLE_LIMIT)
                 .toList();
